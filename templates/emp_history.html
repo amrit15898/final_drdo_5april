@@ -1,0 +1,31 @@
+{% extends 'foundation.html' %}
+
+{% block admincontent %}
+
+<div class="table">
+    <table>
+        <thead>
+            <tr>
+                
+                <th>Date visit</th>
+                <th>Level</th>
+                  <th>Status</th>         
+                  <th>purpose</th>   
+            
+            </tr>
+        </thead>
+        <tbody>
+            {% for obj in objs %}
+            <tr>
+                <td>{{obj.date}}</td>
+                <td>{{obj.clearance_level}}</td>
+                <td>{{obj.final_status}}</td>
+                <td>{{obj.description}}</td>
+            </tr>
+            {% endfor %}
+            
+        </tbody>
+    </table>
+</div>
+
+{% endblock admincontent %}

@@ -1,0 +1,129 @@
+{% extends 'foundation.html' %}
+{% block style %}
+input[type=text], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+input[type=datetime-local], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+textarea, select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+input[type=password], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type=submit] {
+ 
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+
+{% endblock style %}
+
+
+
+
+{% block admincontent %}
+
+<div>
+  {% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %} style="font-size: 20px;">{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+  <form class="main-add-user-form pp" action="" method="POST">
+    {% csrf_token %}
+    <h2 style="text-align: center;">SECURITY CLEARCE</h2>
+    <label for="">ORGANIZATION NAME</label>
+
+    <input type="text" name="organization" style= "width: 100%">
+    
+    <label for="">DURATION</label>
+
+    <input type="text" name="duration" style= "width: 100%">
+
+    <label for="country">TRANSPORTATION REQUIRED</label>
+    <select id="country" name="transportation" style= "width: 100%">
+      
+      <option selected value="SelectGH">Select</option>
+      <option value="yes">Yes</option>
+      <option value="no">No</option>
+    
+                   
+    </select>
+    <label for="country">ACCOMMODATAOIN REQUIRED </label>
+    <select id="country" name="accommodation" style= "width: 100%">
+      <option selected value="SelectGH">Select</option>
+      <option value="yes">Yes</option>
+      <option value="no">No</option>                   
+    </select>
+
+    <label for="country" >CLEARANCE LEVEL</label>
+    <select id="level" name="level" style= "width: 100%">
+      <option selected value="SelectDep">Select Clearance Level</option>
+            <option value="red">Red</option>
+            <option value="yellow">Yellow</option>
+            <option value="green">Green</option>
+            <option value="brown">Brown</option>              
+    </select>
+   
+    <label for="country" >OIC</label>
+    <select id="country" name="ld" style= "width: 100%">
+      <option selected value="SelectDep">Select OIC</option>
+            {% for i in ld %}
+            <option value="{{i.id}}">{{i.name}}</option>
+            {% endfor %}         
+    </select>
+    <label for="country" >SECURITY OFFICER</label>
+    <select id="country" name="so" style= "width: 100%">
+      <option selected value="SelectDep">SELECT SECURITY OFFICER </option>
+            {% for so in so_users %}
+            <option value="{{so.id}}">{{so.name}}</option>
+            {% endfor %}         
+    </select>
+
+    
+    <label for="lname">DATETIME</label>
+    <input type="datetime-local" id="lname" name="date" placeholder="" style= "width: 100%">
+    <label for="lname">PURPOSE</label>
+    <textarea type="text" class="longfield" name="description" placeholder="" style= "width: 100%"></textarea>
+    <label for="lname">ITEMS</label>
+    <textarea type="text" class="longfield" name="items" placeholder="" style= "width: 100%"></textarea>
+  
+    <input type="submit" class="add btngroup-inner3" style="float:left;" value="Submit">
+  </form>
+ 
+
+</div>
+
+{% endblock admincontent %}

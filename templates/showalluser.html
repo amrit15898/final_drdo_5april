@@ -1,0 +1,55 @@
+{% extends 'foundation.html' %} {% block admincontent %}
+<div class="dashboard-wrapper">
+  <div class="title">
+    <h2 class="section--title" style="text-align: center">Users</h2>
+    <a href="{% url 'adduser' %}" class="add"
+      ><i class="ri-add-line"></i>Add User</a
+    >
+  </div>
+  <div class="table">
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Position</th>
+          <th>PIS</th>
+         
+          <th>Designationn</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for user in users %}
+        <tr>
+          <td>{{user.name}}</td>
+          <td>{{user.position}}</td>
+          <td>{{user.pis}}</td>
+      
+          <td>{{user.designation}}</td>
+
+          <td class="table-btn-inner" style="display: flex">
+            <a
+              {% comment %} href="{% url 'deleteuser' user.id %}" {% endcomment %}
+              class="add table-delete-btn"
+              onclick="deleteItem('{{ user.id }}')"
+              >Delete</a
+            >
+            <a
+              href="{% url 'updateuser' user.id %}"
+              class="add table-delete-update"
+              >Update</a
+            >
+          </td>
+          <td>
+            <span
+              ><i class="ri-edit-line edit"></i
+              ><i class="ri-delete-bin-line delete"></i
+            ></span>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock admincontent %}

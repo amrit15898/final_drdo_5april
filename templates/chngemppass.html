@@ -1,0 +1,81 @@
+{% extends 'foundation.html' %}
+{% block style %}
+{% load static %}
+input[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  input[type=datetime-local], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  textarea, select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  input[type=password], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  input[type=submit] {
+   
+  }
+  
+  input[type=submit]:hover {
+    background-color: #45a049;
+  }
+  
+{% endblock style%}
+
+{% block admincontent %}
+
+<div class="ps-change">
+  {% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+<div class="change-password-form">
+  <form class="main-add-user-form" action="" method="POST">
+    {% csrf_token %}
+   
+    <h2 style="text-align: center; margin-top:10px;">Change Password</h2>
+
+
+    <label for="lname">Current Password</label>
+    <input type="password" class="longfield" name="currentpass" placeholder="" style = "width: 100%;" />
+    
+    <label for="lname">New Password</label>
+    <input type="password" class="longfield" name="newpassword" placeholder="" style = "width: 100%;"/>
+    <label for="lname">Confirm Password</label>
+    <input type="password" class="longfield" name="confirmpassword" placeholder="" style = "width: 100%;"/>
+    <div class="chng-password-btn">
+      <input type="submit" class="add add btngroup-inner3" value="Submit">
+    </div>
+  </form>
+</div>
+</div>
+{% endblock admincontent %}

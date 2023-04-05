@@ -1,0 +1,166 @@
+{% extends 'foundation.html' %}
+{% load static %}
+{% block admincontent %}
+
+<div class="user-profile">
+
+    <!-- img box -->
+    <div class="img-box">
+
+        <div class="box-inner-img">
+            <div class="img-p">
+                <img src="/media/{{obj.r_user.image}}" alt="logo">
+
+            </div>
+        </div>
+        <div class="user-name-box">
+            <h4>{{obj.r_user.name}}</h4>
+            <p></p>
+        </div>
+       
+    </div>
+
+    <!-- content -->
+    <div class="user-content">
+
+        <div class="user-content-box">
+            <p>Name</p>
+            <span>{{obj.r_user.name}}</span>
+        </div>
+
+        <div class="user-content-box">
+            <p>Designation</p>
+            <span>{{obj.r_user.designation}}.</span>
+        </div>
+
+        
+
+        <div class="user-content-box">
+            <p>PIS ID</p>
+            <span>{{obj.r_user.pis}}</span>
+        </div>
+
+        {% if request.pvt_request == True %}
+        <div class="user-content-box">
+            <p>Company Name</p>
+            <span>{{obj.organization_name}}</span>
+        </div>
+        <div class="user-content-box">
+            <p>Adhar No</p>
+            <span>{{obj.r_user.adhaar_no}}</span>
+        </div>
+
+        <div class="user-content-box">
+            <p>Age</p>
+            <span>33...</span>
+        </div>
+
+        <div class="user-content-box">
+            <p>Height</p>
+            <span>5.33</span>
+        </div>
+
+        <div class="user-content-box">
+            <p>Location</p>
+            <span>address....</span>
+        </div>
+        {% endif %}
+
+        <div class="user-content-box">
+            <p>Level Of Clearance</p>
+            <span>{{obj.clearance_level}}</span>
+        </div>
+
+        <div class="user-content-box">
+            <p>Visit date</p>
+            <span>{{obj.date}}</span>
+        </div>
+        
+        <div class="user-content-box">
+            <p>Permanent ID</p>
+            <span>{{obj.perm_id}}</span>
+        </div>
+        <div class="user-content-box">
+            <p>Duration of visit</p>
+            <span>{{obj.duration}}</span>
+        </div>
+
+        <div class="user-content-box">
+            <p>Brief purpose of visit</p>
+            <span>{{obj.description}}</span>
+        </div>
+
+        {% if request.user.position == "oic" %}
+
+         <div class="user-content-box">
+            <p>Reason of cancelation</p>
+            <span>{{obj.reason_cancelation}}</span>
+        </div>
+
+        {% endif %}
+        <div class="user-content-box">
+            <p>Details of item taken for visit</p>
+            <span>{{obj.items}}</span>
+        </div>
+        <div class="user-content-box">
+            <p>Transportation required</p>
+            <span>{{obj.transporation_requirement}}</span>
+        </div>
+        <div class="user-content-box">
+            <p>Accommodatoin Requirement</p>
+            <span>{{obj.accommodation_requirement}}</span>
+        </div>
+        <div class="user-content-box">
+            <p>Seurity Officer</p>
+            <span>{{obj.security_officer}}</span>
+        </div>
+        <div class="user-content-box">
+            <p>OIC</p>
+            <span>{{obj.ld}}</span>
+        </div>
+        <div class="user-content-box">
+            <p>Temp Id</p>
+            <span>{{obj.tem_id}}</span>
+        </div>
+
+        {% if obj.reason_cancelation %}
+        <div class="user-content-box">
+            <p>Reason Cancelation</p>
+            <span>{{obj.reason_cancelation}}</span>
+        </div>
+            
+        {% endif %}
+
+        
+
+
+        
+        
+    </div>
+
+    <div class="btn-box-user">
+    {% if obj.final_status == "Pending" and request.user.is_superuser != True  %}
+        <form action="" style="display: flex;" method="post">
+            {% csrf_token %}
+            <button class="add" value="{{obj.id}}" name="approve">Approve</button>
+            <button class="add" value="{{obj.id}}" name="reject">Reject</button>
+        </form>
+        {% comment %} {% if request.user.position == "Director" %}
+        <button class="add" value="{{obj.id}}" name="dircancel">Reason of cancelation</button>
+        {% endif %} {% endcomment %}
+
+        {% else %}
+        {% if request.user.is_superuser != True %}
+        <button class="add">{{obj.final_status}}</button>
+        {% endif %}
+
+        {% endif %}
+        <a href="{% url 'showhistory' obj.r_user.employee_id %}">Past History</a>
+        
+    </div>
+    
+
+</div>
+
+
+{% endblock admincontent %}

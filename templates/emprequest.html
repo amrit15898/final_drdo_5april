@@ -1,0 +1,54 @@
+{% extends 'foundation.html' %}
+
+{% block style %}
+
+
+{% endblock style %}
+
+{% block admincontent %}
+<div class="dashboard-wrapper">
+<h2 class="">Your Requests</h2>
+
+<div class="table"  style="overflow-x:auto;">
+    <table id="thtable">
+      
+          <tr class="th">
+      
+            
+
+            <th>Created At</th>
+            <th>Description</th>
+            <th>Date</th>
+            <th>Level</th>
+            <th>Status</th>
+            <th>Details</th>
+         
+
+            {% comment %} <th>Action</th> {% endcomment %}
+          
+          </tr>
+ 
+        <tbody>
+          {% for obj in objs %}
+
+          <tr>
+            <td>{{obj.created_at}}</td>
+            <td>{{obj.description|truncatechars:50}} <a href="{% url 'showfull' obj.id %}">Read</a></td>
+            <td>{{obj.date}}</td>
+            <td>{{obj.clearance_level}}</td>
+            <td><button class="add">
+              {{obj.final_status}}
+            </button></td>
+            <td><a href="{% url 'showfullrequest' obj.id %}" class="add" style="width: 150px;">Show Full Details</a></td>
+                
+          </tr>
+          {% endfor %}
+      
+        </tbody>
+      </table>
+    
+
+</div>
+</div>
+
+{% endblock admincontent %}

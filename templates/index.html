@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% block style %}
+
+#navbar{
+background-color: #333a3d;
+height:60px;
+width: 100%;
+
+
+}
+.linkbtn{
+  color: white;
+  text-decoration :none;
+  margin: auto;
+  font-size: 25px;
+
+}
+.card{
+padding: 25px;
+width: 190px;
+height: 70px;
+border-radius: 10px;
+box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+display: inline-block;
+margin-right: 20px;
+background-color: 
+
+}
+
+.carddiv{
+  margin-top: 100px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-left: auto;
+  text-align: -webkit-center;
+}
+
+.text{
+margin: auto;
+}
+
+body{
+  margin: 0px;
+}
+.main{
+  width: 70%;
+  margin: auto;
+  margin-top: auto;
+}
+{% comment %} li{
+  display:inline;
+  color: white;
+  margin-right:10px;
+  margin-top: 10px;
+} {% endcomment %}
+{% endblock style %}
+{% block content %}
+
+<div>
+  <div id="navbar">
+    {% comment %} <ul>
+      <li><a href="" class="linkbtn">Home</a></li>
+      <li><a href="" class="linkbtn">Users</a></li>
+      <li><a href="" class="linkbtn">Department</a></li>
+      <li><a href="" class="linkbtn">Appointment</a></li>
+    </ul> {% endcomment %}
+  </div>
+  <div class="main">
+ 
+    <div class="carddiv">
+      <a href="{% url 'showusers' %}">
+        <div class="card">
+          <h2 class="text">Users <sup style="color: black;">{{usercount}}</sup></h2>
+        </div>
+      </a>
+      <a href="{% url 'showdepartment' %}">
+        <div class="card">
+          <h2 class="text">Department <sup style="color: black;">{{departmentcount}}</sup></h2>
+        </div>
+      </a>
+      <a href="{% url 'showapp' %}">
+        <div class="card">
+          <h2 class="text">Appointment <sup style="color: black;">{{appcount}}</sup></h2>
+        </div>
+      </a>
+      
+    </div>
+    <div style="margin-top:20px;">
+      <a href="{% url 'logout' %}" class="addbtn"
+      style="background-color: rgb(71, 71, 95); float:right; border-radius: 10px; padding: 10px; margin-top: 20px; margin-right: 99px ; color: white; text-decoration: none;">Logout</a>
+    </div>
+   
+  </div>
+</div>
+
+
+
+{% endblock content %}

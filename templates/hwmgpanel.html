@@ -1,0 +1,66 @@
+{% extends 'foundation.html' %}
+{% block option %}
+    <li>
+        <a href=""><span>Dashboard</span></a>
+        
+    </li>
+    <li>
+    <a href="{% url 'fullprofile' %}">
+      
+        <span >Profile</span>
+      </a>
+    </li>
+  <li>
+    <a href="{% url 'chngpassword' %}">
+      
+        <span >Change Password</span>
+      </a>
+    </li>
+  <li>
+    <a href="{% url 'logout' %}">
+      
+        <span >Logout</span>
+      </a>
+    </li>
+{% endblock option %}
+
+{% block admincontent %}
+<div class="title">
+    <h2 class="section--title" style="text-align: center">Appointment Clearance</h2>
+  
+  </div>
+  <table id="thtable" class="table">
+        
+    <tr>
+  
+      <th>User</th>
+      <!-- <th>Department</th> -->
+      <th>Clearance Level</th>
+      <th>Date</th>
+      <th>Details</th>
+  
+    </tr>
+  
+  <tbody>
+    {% for obj in objs %}
+  
+    <tr>
+      <th >{{obj.r_user}}</th>
+     
+      
+  
+      <td>{{obj.clearance_level}}</td>
+      <td>{{obj.date}}</td>
+      <td><th><a href="{% url 'showfullrequest' obj.id %}" class="add" style="width: 150px;">Show Full Details</a></th>
+      </td>
+    
+  
+    </tr>
+    {% endfor %}
+  
+  </tbody>
+  </table>
+  
+
+{% endblock admincontent %}
+

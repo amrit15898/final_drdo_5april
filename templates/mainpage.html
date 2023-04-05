@@ -1,0 +1,74 @@
+{% extends 'foundation.html' %} {% block admincontent %}
+
+<div class="dashboard-wrapper">
+  <div class="dashboard-inner">
+    <h2 class="dashboard-heading">Dashboard</h2>
+    <div class="cards" style="margin-left: auto; margin-right: auto">
+      <div class="card card-1">
+        <div class="card--data">
+          <div class="card--content">
+            <h5 class="card--title">Total Users</h5>
+            <h1>{{usercount}}</h1>
+          </div>
+        </div>
+      </div>
+
+      <div class="card card-3">
+        <div class="card--data">
+          <div class="card--content">
+            <h5 class="card--title">Total Appointments</h5>
+            <h1>{{appcount}}</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="title">
+    <h2 class="section--title">Users</h2>
+    <a href="{% url 'adduser' %}" class="add"
+      ><i class="ri-add-line"></i>Add User</a
+    >
+  </div>
+  <div class="table">
+    <table>
+      <thead>
+        <tr>
+          <th>PIS</th>
+          <th>Name</th>
+          <th>Position</th>
+
+          <th style="">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for user in users %}
+        <tr>
+          <td>{{user.pis}}</td>
+          <td>{{user.name}}</td>
+          <td>{{user.position}}</td>
+
+          <td class="table-btn-inner" style="display: flex">
+            <a
+              class="add table-delete-btn"
+              onclick="deleteItem('{{ user.id }}')"
+              >Delete</a
+            ><a
+              href="{% url 'updateuser' user.id %}"
+              class="add table-delete-update"
+              >Update</a
+            >
+          </td>
+          <td>
+            <span
+              ><i class="ri-edit-line edit"></i
+              ><i class="ri-delete-bin-line delete"></i
+            ></span>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% endblock admincontent %}

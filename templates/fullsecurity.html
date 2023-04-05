@@ -1,0 +1,140 @@
+
+{% extends 'foundation.html' %}
+{% block style %}
+.container{
+    width: 50%;
+    margin: auto;
+ 
+    float: center;
+    margin-top: 100px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    
+    
+    
+
+   
+}
+.addbtn{
+    padding:10px;
+    background-color: #017BFF;
+    color: white;
+    margin: 5px;
+    text-decoration : none;
+    border-radius: 8px;
+    
+
+  }
+
+  p{
+    text-align:left;
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+  .imagetd{
+    height: 250px;
+  }
+{% comment %} .inner{
+    position: absolute;
+
+} {% endcomment %}
+{% endblock style %}
+
+{% block option %}
+{% comment %} {% if request.user.position == 'Security officer' %} {% endcomment %}
+<li>
+  <a href="/home/sesdfpnel">
+    
+      <span >Dashboard</span>
+    </a>
+  </li>
+<li>
+  <a href="{% url 'fullprofile' %}" >
+    
+      <span >Profile</span>
+    </a>
+  </li>
+<li>
+  <a href="{% url 'fullprofile' %}" >
+    
+      <span >Change Password</span>
+    </a>
+  </li>
+<li>
+  <a href="{% url 'logout' %}" >
+    
+      <span >Logout</span>
+    </a>
+  </li>
+
+  {% comment %} {% endif %} {% endcomment %}
+  {% if request.user.position == 'GH/DH' %}
+
+  <a href="/home/shsfsdfow-readfafquest">
+    
+    <span >Dashboard</span>
+  </a>
+</li>
+  {% endif %}
+{% endblock option %}
+
+
+
+{% block admincontent %}
+<div class="dashboard-wrapper">
+  {% comment %} <div class="inner">
+    <p style="text-align:left; margin-bottom: 20px;">Name == {{obj.r_user.name}}</p>
+    <p>Description == {{obj.description}}</p>
+    <!-- <p>Department == {{obj.department.name}}</p> -->
+    <p>Date == {{obj.date}}</p>
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdRx1rDicE0AYshdx1RDRyXrJ8jBq39o1EQ2HrWSQD&s" style="height:150px; width:150px; float:right;    margin-top: 207px;
+    margin-left: 850px;"  alt="" srcset="">
+
+  
+   {% if request.user.position == 'GH/DH' and obj.send_security == False %}
+   <div style="text-align: center;">
+    <form method="POST" class="form">
+        {% csrf_token %}
+        <button name="forward" class="addbtn" style="" value="{{obj.id}}" class="btnstyle" type="submit">Forward SO</button>
+      </form>
+   </div>
+   <a href="/home/shsfsdfow-readfafquest" style="float: right; background-color:#DC3545; margin-top:10px;" class="addbtn">Home</a>
+   {% else %}
+   <a href="/home/sesdfpnel" style="float: right; background-color:#DC3545; margin-top:10px;" class="addbtn">Home</a>
+   {% endif %} {% endcomment %}
+   <table style="width:100%">
+    {% if obj.r_user.image %}
+    
+    <tr>
+        <th>Profile Pic</th>
+        <td class="imagetd"><img src="/media/{{obj.r_user.image}}" alt="" srcset="" style="height: 200px;
+          width: 200px;
+          margin-left: 850px;
+          margin-top: 126px;"></td>
+      </tr>
+    
+    {% endif %}
+    <tr>
+      <th><h3>NAME :</h3></th>
+      <td>{{obj.r_user.name}}</td>
+    </tr>
+    <tr>
+      <th><h3>DESCRIPTION :</h3></th>
+      <td class="imagetd">{{obj.description}}</td>
+    </tr>
+    <!-- <tr>
+      <th><h3>DEPARTMENT :</h3></th>
+      <td>{{obj.department.name}}</td>
+    </tr> -->
+    <tr>
+      <th><h3>Permanent Id :</h3></th>
+      <td>{{obj.perm_id}}</td>
+    </tr>
+  </table>
+
+
+</div>
+
+{% endblock admincontent %}
+
+

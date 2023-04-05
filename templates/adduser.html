@@ -1,0 +1,146 @@
+{% extends 'foundation.html' %}
+{% block style %}
+input[type=text], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+input[type=file], select {
+  width: 100%;
+  padding: 8px 16px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+input[type=password], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+.btngroup{
+  display: flex;
+ 
+}
+.btngroup #hidepass{
+  margin-left : 10px;
+}
+
+
+{% endblock style %}
+{% block admincontent %}
+
+
+<div>
+  {% if messages %}
+<ul>
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+  <form class="main-add-user-form" action="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <h2 style="text-align: center;">Add User</h2>
+
+  <div class="form-add-user">
+
+    <div class="form-add-user-filds">
+      <label for="">NAME</label>
+      <input type="text" id="fname" style = "width: 100%;" name="name" placeholder="" required>
+    </div>
+    <div class="form-add-user-filds">
+      <label for="">PIS</label>
+      <input type="text" name="pis" style = "width: 100%;" required>
+    </div>
+
+    <div class="form-add-user-filds">
+      <label for="">EMPLOYEE ID</label>
+      <input type="text" id="fname" name="userid" placeholder="" style = "width: 100%;" required>
+    </div>
+    <div class="form-add-user-filds">
+      <label for="">ADHAAR ID</label>
+      <input type="text" id="fname" name="adhaar_no" pattern="[0-9]*" placeholder="" minlength = "12" required style = "width: 100%;">
+    </div>
+    <div class="form-add-user-filds">
+      <label for="">IMAGE</label>
+      <input type="file"  name="img" placeholder="" style = "width: 100%; border: 1px solid black;">
+    </div>
+
+    {% comment %} <div class="form-add-user-filds">
+      <label for="department">DEPARTMENT</label>
+      <select id="departmen" name="department">
+        <option selected value="selectposition">Select Position</option>
+                      {% for department in departments %}
+
+                      <option value="{{department.id}}">{{department.name}}</option>
+                      {% endfor %}
+      </select>
+    </div>
+   {% endcomment %}
+    <div class="form-add-user-filds">
+      <label for="country">POSITION</label>
+      <select name="position" id ="getposition" onchange="toggleInput()" style = "width: 100%;">
+        <option selected value="selectposition">Select Position</option>
+                      <option value="Director">Director</option>
+                      <option value="Associate Director">Associate Director</option>
+                      <option value="Tech Director">Tech Director</option>
+                      <option value="GH/DH">GH/DH</option>
+                      <option value="Employee">Employee</option>
+                      <option value="Security officer">Security officer</option>
+                      <option value="oic">Oic</option>
+                      <option value="hwmg">Hwmg</option>
+      </select>
+    </div>
+    <div class="form-add-user-filds">
+      <label for="">DESIGNATIONN</label>
+      <input type="text"  name="designation" placeholder="" style = "width: 100%;"> 
+    </div>
+    <div class="form-add-user-filds" id="selectghdh">
+      <label for="">GH/DH</label>
+      <select name="gh_dh" style = "width: 100%;">
+        <option value="">SELECT GH/DH</option>     
+        {% for gh_dh in gh_dh_users %}
+        <option value="{{gh_dh.id}}">{{gh_dh.name}}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div id="select_tech" class="form-add-user-filds">
+      <label for="">TECH DIRECTOR</label>
+      <select name="tech_dir" id="selectdir" style = "width: 100%;">
+        <option value="">SELECT Tech Director</option> 
+        {% for tech_dir in tech_dir_users %}
+        <option value="{{tech_dir.id}}">{{tech_dir.name}}</option>
+        {% endfor %}
+      </select>
+    </div>
+    
+    <div class="form-add-user-filds" >
+      <label for="lname">PASSWORD</label>
+      <input type="password" id="passwordField" name="password" placeholder="" style = "width: 100%;">
+    </div>
+
+  </div>
+    <div class="btngroup-f">
+    {% comment %} <button onclick="getPassword()" class="add btngroup-inner1" type="button" >Genrate Password</button> {% endcomment %}
+    <button onclick="togglePassword()" class="add btngroup-inner2" type="button" id ="hidepass">Show Password</button>  
+    <input type="submit" class="add btngroup-inner3"  value="Submit">
+    </div>
+  </form>
+</div>
+<script>
+  
+</script>
+
+
+{% endblock admincontent %}

@@ -1,0 +1,480 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="{% static 'css/bootstrap.css' %}">
+  <!-- <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}"> -->
+  <link rel="stylesheet" href="{% static 'css/main.css'%}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/font.css' %}">
+  <style>
+    {
+      % block style %
+    }
+
+      {
+      % endblock style %
+    }
+  </style>
+  <title>Dashboard</title>
+
+</head>
+
+<body>
+
+
+  {% comment %} {% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{message}}</li>
+      {% endfor %}
+  </ul>
+  {% endif %} {% endcomment %}
+  <section class="header">
+    <div class="menu-icon">
+      <div class="logo-header">
+        <img src="{% static 'static/img/logo.png'%}">
+      </div>
+      <div onclick="myFunction()" class="main-menu-icon">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+    <div class="main-user">
+      {% if request.user.position == "Director" %}
+      <div onclick="myFunctionp()" class="notification--profile">
+        <img src="{% static 'static/img/notification.svg'%}">
+        <div class="notification-count">
+          {{data.dir_objs}}
+        </div>
+        <!-- {% if request.user.position == "GH/DH" %}
+          <div class="notification-count">
+            {{data.gh_dh_objs}}
+          </div>
+          {% endif %}
+          {% if request.user.position == "Tech Director" %}
+          <div class="notification-count">
+            {{data.tech_dir_objs}}
+          </div>
+          {% endif %} -->
+        </div>
+        {% endif %}
+      
+      <div id="notification-hide" class="notification-box">
+        
+        {% if request.user.position == "Director" %}
+        {% for obj in data.dir_objs1 %}
+        <ul>
+          
+          <li><a href="">{{obj.r_user.name}}</a></li>
+          <li><a href="">{{obj.date}}</a></li>
+          <hr>
+        </ul>
+        {% endfor %}
+        {% endif %}
+
+        <!-- {% if request.user.position == "GH/DH" %}
+        {% for obj in data.gh_dh_objs1 %}
+        <ul>
+          
+          <li><a href="">{{obj.r_user.name}}</a></li>
+          <li><a href="">{{obj.date}}</a></li>
+          <hr>
+        </ul>
+        {% endfor %}
+        {% endif %}
+        {% if request.user.position == "Tech Director" %}
+        {% for obj in data.tech_dir_objs %}
+        <ul>
+          
+          <li><a href="">{{obj.r_user.name}}</a></li>
+          <li><a href="">{{obj.date}}</a></li>
+          <hr>
+        </ul>
+        {% endfor %}
+        {% endif %} -->
+
+      </div>
+    
+    <div class="search--notification--profile">
+      <div class="main-user">
+
+        <div onclick="myFunctionu1()" class="notification--profile">
+          <img src="{% static 'static/img/profile.svg'%}">
+        </div>
+
+        <div id="user-hide" class="notification-box">
+          <ul>
+
+            <li><b>NAME</b> -- {{request.user.pis}}</li>
+            <li><b>POSITION</b> -- {{request.user.position}}</li>
+            <li style="text-align: center;"><a href="{% url 'logout' %}">Logout</a></li>
+
+
+          </ul>
+
+        </div>
+
+      </div>
+      </div>
+
+
+  </section>
+  <section class="main">
+    <div id="menu-show" class="sidebar">
+      <ul class="sidebar--items sidebar-menu">
+
+
+        {% if request.user.is_superuser == True %}
+        <li>
+          <a href="/adminpanel" id="active--link">
+
+            <span class="ds-icon ds-icon-white"><img src="{% static 'static/img/dashboard-w.png'%}"></span><span
+              class="ds-icon ds-icon-blue"><img src="{% static 'static/img/dashboard.svg'%}"> </span><span
+              class="sidebar--item">Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'showusers' %}">
+
+            <span class="ds-icon ds-icon-white"><img src="{% static 'static/img/user-w.png'%}"> </span><span
+              class="ds-icon ds-icon-blue"><img src="{% static 'static/img/user.svg'%}"> </span><span
+              class="sidebar--item">Users</a>
+          </a>
+        </li>
+        <!-- <li>
+                <a href="{% url 'showdepartment' %}">
+                  
+                   <span class="ds-icon ds-icon-white"><img src="{% static 'static/img/department-w.png'%}"> </span><span class="ds-icon ds-icon-blue"><img src="{% static 'static/img/department.svg'%}"> </span> <span class="sidebar--item" style="white-space: nowrap;">Departments</span>
+                </a>
+            </li> -->
+
+        <li>
+          <a href="{% url 'showapp' %}">
+
+            <span class="ds-icon ds-icon-white"><img src="{% static 'static/img/appointment-w.png'%}"> </span><span
+              class="ds-icon icon ds-icon-blue" style="margin: 0;"><img src="{% static 'static/img/appointment.svg'%}">
+            </span><span class="sidebar--item">Appointments</span>
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'forgotmessage' %}">
+
+            <span class="ds-icon ds-icon-white"><img src="{% static 'static/img/forgot-password-w.png'%}"> </span><span
+              class="ds-icon ds-icon-blue"><img src="{% static 'static/img/forgot-password.svg'%}"> </span><span
+              class="sidebar--item">Forgot Password Requests</span>
+          </a>
+        </li>
+        <li>
+          {% endif %}
+          {% if request.user.position == "hwmg" %}
+        <li>
+          <a href="/home/hwpanel" id="active--link">
+
+            <span class="ds-icon ds-icon-white"><img src="{% static 'static/img/dashboard-w.png'%}"></span><span
+              class="ds-icon ds-icon-blue"><img src="{% static 'static/img/dashboard.svg'%}"> </span><span
+              class="sidebar--item">Dashboard</span>
+          </a>
+        </li>
+        {% endif %}
+        {% if request.user.position == "Employee" %}
+        <li>
+          <a href="/home/postapntent" id="active--link">
+
+            <span class="ds-icon ds-icon-white"><img src="{% static 'static/img/dashboard-w.png'%}"></span><span
+              class="ds-icon ds-icon-blue"><img src="{% static 'static/img/dashboard.svg'%}"> </span><span
+              class="sidebar--item">Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a href="/home/seret">
+
+            <span class="ds-icon ds-icon-white"><img src="{% static 'static/img/sec-w.svg'%}"></span><span
+              class="ds-icon ds-icon-blue"><img src="{% static 'static/img/sesecurity-clearance-request.svg'%}">
+            </span><span class="sidebar--item">Show Request</span>
+          </a>
+        </li>
+        {% comment %} <li>
+          <a href="{% url 'unapproved' %}">
+
+            <span class="ds-icon ds-icon-white"><img src="{% static 'static/img/sec-w.svg'%}"></span><span
+              class="ds-icon ds-icon-blue"><img src="{% static 'static/img/sesecurity-clearance-request.svg'%}">
+            </span><span class="sidebar--item">Cancel Request</span>
+          </a>
+        </li> {% endcomment %}
+
+        {% endif %}
+        {% if request.user.position == "Security officer" %}
+
+        <li>
+          <a href="/home/sesdfpnel">
+
+            <span class="ds-icon ds-icon-white"><img src="{% static 'static/img/dashboard-w.png'%}"></span><span
+              class="ds-icon ds-icon-blue"><img src="{% static 'static/img/dashboard.svg'%}"> </span><span
+              class="sidebar--item">Dashboard</span>
+          </a>
+        </li>
+        {% endif %}
+
+        {% if request.user.position == "oic"%}
+        <li>
+          <a href="/home/oicpanel">
+
+            <span class="ds-icon ds-icon-white"><img src="{% static 'static/img/dashboard-w.png'%}"></span><span
+              class="ds-icon ds-icon-blue"><img src="{% static 'static/img/dashboard.svg'%}"> </span><span
+              class="sidebar--item">Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'appointment' %}">
+
+            <span class="ds-icon ds-icon-white"><img src="{% static 'static/img/sesecurity-w.png'%}"></span><span
+              class="ds-icon ds-icon-blue"><img src="{% static 'static/img/sesecurity-clearance-request.svg'%}">
+            </span><span class="sidebar--item">Request</span>
+          </a>
+        </li>
+        <li>
+          <a href="/home/seret">
+
+            <span class="ds-icon ds-icon-white"><img src="{% static 'static/img/sec-w.svg'%}"></span><span
+              class="ds-icon ds-icon-blue"><img src="{% static 'static/img/sesecurity-clearance-request.svg'%}">
+            </span><span class="sidebar--item">Show Request</span>
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'pvtemp' %}">
+
+            <span class="ds-icon ds-icon-white"><img src="{% static 'static/img/sesecurity-w.png'%}"></span><span
+              class="ds-icon ds-icon-blue"><img src="{% static 'static/img/sesecurity-clearance-request.svg'%}">
+            </span><span class="sidebar--item">Post Pvt. Request</span>
+          </a>
+        </li>
+        <li>
+
+        {% endif %}
+
+        {% if request.user.position == "GH/DH" %}
+        <li>
+          <a href="/home/shsfsdfow-readfafquest" id="active--link">
+
+            <span class="ds-icon ds-icon-white"><img src="{% static 'static/img/dashboard-w.png'%}"></span><span
+              class="ds-icon ds-icon-blue"><img src="{% static 'static/img/dashboard.svg'%}"> </span><span
+              class="sidebar--item">Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'appointment' %}">
+
+            <span class="ds-icon ds-icon-white"><img src="{% static 'static/img/sesecurity-w.png'%}"></span><span
+              class="ds-icon ds-icon-blue"><img src="{% static 'static/img/sesecurity-clearance-request.svg'%}">
+            </span><span class="sidebar--item">Request</span>
+          </a>
+        </li>
+        <li>
+          <a href="/home/seret">
+
+            <span class="ds-icon ds-icon-white"><img src="{% static 'static/img/sec-w.svg'%}"></span><span
+              class="ds-icon ds-icon-blue"><img src="{% static 'static/img/sesecurity-clearance-request.svg'%}">
+            </span><span class="sidebar--item">Show Request</span>
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'pvtemp' %}">
+
+            <span class="ds-icon ds-icon-white"><img src="{% static 'static/img/sesecurity-w.png'%}"></span><span
+              class="ds-icon ds-icon-blue"><img src="{% static 'static/img/sesecurity-clearance-request.svg'%}">
+            </span><span class="sidebar--item">Post Pvt. Request</span>
+          </a>
+        </li>
+        <li>
+          {% endif %}
+
+          {% if request.user.position == "Tech Director" %}
+        <li>
+          <a href="/home/shsfsdfow-readfafquest" id="active--link">
+
+            <span class="ds-icon ds-icon-white"><img src="{% static 'static/img/dashboard-w.png'%}"></span><span
+              class="ds-icon ds-icon-blue"><img src="{% static 'static/img/dashboard.svg'%}"> </span><span
+              class="sidebar--item">Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'appointment' %}">
+
+            <span class="ds-icon ds-icon-white"><img src="{% static 'static/img/sesecurity-w.png'%}"></span><span
+              class="ds-icon ds-icon-blue"><img src="{% static 'static/img/sesecurity-clearance-request.svg'%}">
+            </span><span class="sidebar--item">Request</span>
+          </a>
+        </li>
+        <li>
+          <a href="/home/seret">
+
+            <span class="ds-icon ds-icon-white"><img src="{% static 'static/img/sec-w.svg'%}"></span><span
+              class="ds-icon ds-icon-blue"><img src="{% static 'static/img/sesecurity-clearance-request.svg'%}">
+            </span><span class="sidebar--item">Show Request</span>
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'pvtemp' %}">
+
+            <span class="ds-icon ds-icon-white"><img src="{% static 'static/img/sesecurity-w.png'%}"></span><span
+              class="ds-icon ds-icon-blue"><img src="{% static 'static/img/sesecurity-clearance-request.svg'%}">
+            </span><span class="sidebar--item">Post Pvt. Request</span>
+          </a>
+        </li>
+        <li>
+          {% endif %}
+          {% if request.user.position == "Associate Director" %}
+
+        <li>
+          <a href="/home/shsfsdfow-readfafquest" id="active--link">
+
+            <span class="ds-icon ds-icon-white"><img src="{% static 'static/img/dashboard-w.png'%}"></span><span
+              class="ds-icon ds-icon-blue"><img src="{% static 'static/img/dashboard.svg'%}"> </span><span
+              class="sidebar--item">Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'appointment' %}">
+
+            <span class="ds-icon ds-icon-white"><img src="{% static 'static/img/sesecurity-w.png'%}"></span><span
+              class="ds-icon ds-icon-blue"><img src="{% static 'static/img/sesecurity-clearance-request.svg'%}">
+            </span><span class="sidebar--item">Request</span>
+          </a>
+        </li>
+        <li>
+        <li>
+          <a href="/home/seret">
+
+            <span class="ds-icon ds-icon-white"><img src="{% static 'static/img/sec-w.svg'%}"></span><span
+              class="ds-icon ds-icon-blue"><img src="{% static 'static/img/sesecurity-clearance-request.svg'%}">
+            </span><span class="sidebar--item">Show Request</span>
+          </a>
+        </li>
+        <a href="{% url 'pvtemp' %}">
+
+          <span class="ds-icon ds-icon-white"><img src="{% static 'static/img/sesecurity-w.png'%}"></span><span
+            class="ds-icon ds-icon-blue"><img src="{% static 'static/img/sesecurity-clearance-request.svg'%}">
+          </span><span class="sidebar--item">Post Pvt. Request</span>
+        </a>
+        </li>
+        {% endif %}
+        {% if request.user.position == "Director" %}
+
+        <li>
+          <a href="/home/shsfsdfow-readfafquest" id="active--link">
+
+            <span class="ds-icon ds-icon-white"><img src="{% static 'static/img/dashboard-w.png'%}"></span><span
+              class="ds-icon ds-icon-blue"><img src="{% static 'static/img/dashboard.svg'%}"> </span><span
+              class="sidebar--item">Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'appointment' %}">
+
+            <span class="ds-icon ds-icon-white"><img src="{% static 'static/img/sesecurity-w.png'%}"></span><span
+              class="ds-icon ds-icon-blue"><img src="{% static 'static/img/sesecurity-clearance-request.svg'%}">
+            </span><span class="sidebar--item">Request</span>
+          </a>
+        </li>
+        <li>
+          <a href="/home/seret">
+
+            <span class="ds-icon ds-icon-white"><img src="{% static 'static/img/sec-w.svg'%}"></span><span
+              class="ds-icon ds-icon-blue"><img src="{% static 'static/img/sesecurity-clearance-request.svg'%}">
+            </span><span class="sidebar--item">Show Request</span>
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'pvtemp' %}">
+
+            <span class="ds-icon ds-icon-white"><img src="{% static 'static/img/sesecurity-w.png'%}"></span><span
+              class="ds-icon ds-icon-blue"><img src="{% static 'static/img/sesecurity-clearance-request.svg'%}">
+            </span><span class="sidebar--item">Post Pvt. Request</span>
+          </a>
+        </li>
+        {% endif %}
+        <a href="{% url 'fullprofile' %}">
+
+          <span class="ds-icon ds-icon-white pp"><img src="{% static 'static/img/profile-w.png'%}"></span><span
+            class="ds-icon ds-icon-blue pp"><img src="{% static 'static/img/profile.svg'%}"></span><span
+            class="sidebar--item">Profile</span>
+        </a>
+        </li>
+        <li>
+          <a href="{% url 'chngpassword' %}">
+
+            <span class="ds-icon ds-icon-white"><img src="{% static 'static/img/change-password-w.png'%}"> </span><span
+              class="ds-icon ds-icon-blue"><img src="{% static 'static/img/change-password.svg'%}"> </span><span
+              class="sidebar--item">Change Password</span>
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'logout' %}">
+
+            <span class="ds-icon ds-icon-white"><img src="{% static 'static/img/logout-w.png'%}"> </span> <span
+              class="ds-icon ds-icon-blue"><img src="{% static 'static/img/logout.svg'%}"> </span><span
+              class="sidebar--item">Logout</span>
+          </a>
+        </li>
+      </ul>
+      <ul class="sidebar--bottom-items">
+
+        <!-- <li>
+                    <a href="{% url 'logout' %}">
+                        <span class="icon icon-8"><i class="ri-logout-box-r-line"></i></span>
+                        <span class="sidebar--item" class="">Logout</span>
+                    </a>
+                </li> -->
+      </ul>
+    </div>
+    <div id="main-sec" class="main--content">
+
+
+
+      <div class="recent--patients">
+        {% block admincontent %}
+
+        {% endblock admincontent %}
+      </div>
+
+    </div>
+  </section>
+
+  <!-- <script src="/static/js/index.js"></script> -->
+  <!-- <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script> -->
+  <script src="{% static 'static/js/index.js' %}"></script>
+
+  <script>
+    function myFunction() {
+      var element = document.getElementById("menu-show");
+      element.classList.toggle("hide-sidebar");
+
+      var element = document.getElementById("main-sec");
+      element.classList.toggle("main-sec-full");
+
+    }
+  </script>
+
+  <script>
+    function myFunctionp() {
+      var element = document.getElementById("notification-hide");
+      element.classList.toggle("notification-show");
+
+    }
+  </script>
+  <script>
+    function myFunctionu1() {
+      var element = document.getElementById("user-hide");
+      element.classList.toggle("user-show");
+
+    }
+  </script>
+
+</body>
+
+</html>

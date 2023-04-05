@@ -1,0 +1,98 @@
+{% extends 'foundation.html' %}
+{% block style %}
+input[type=text], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+input[type=file], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+input[type=password], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+
+
+{% endblock style %}
+{% block admincontent %}
+
+
+
+<div>
+  <form class="main-add-user-form" action="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <h3 style="text-align: center;">Edit User</h3>
+    <label for="fname">Name</label>
+    <input type="text" id="fname" value="{{user.name}}" name="name" placeholder="" style="width:100%;">
+    <label for="fname">Employee id</label>
+    <input type="text" id="fname" value="{{user.employee_id}}" name="employee_id" placeholder="" style="width:100%;">
+    <label for="fname">Image</label>
+    <input type="file" id="fname"  name="img" placeholder="" style="width:100%; border: 1px solid grey;">
+    <label for="fname">DESIGNATION</label>
+    <input type="text" id="fname" value="{{user.designation}}"  name="designation" placeholder="" style="width:100%;"><br>
+
+
+
+    <label for="country">POSITION</label>
+    <select id="country" name="position" style="width: 100%;">
+      <option selected>{{user.position}}</option>
+                    <option value="Director">Director</option>
+                    <option value="Associate Director">Associate Director</option>
+                    <option value="Tech Director">Tech Director</option>
+                    <option value="GH/DH">GH/DH</option>
+                    <option value="Employee">Employee</option>
+    </select>
+    {% comment %} <div class="form-add-user-filds" id="selectghdh">
+      <label for="">GH/DH</label>
+      <select name="gh_dh" >
+        <option selected  value={{user.gh_dh_user.id}}>{{user.gh_dh_user.name}}</option>
+        
+        {% for gh_dh in gh_dh_users %}
+
+        <option value="{{gh_dh.id}}">{{gh_dh.name}}</option>
+
+        {% endfor %}
+
+      </select>
+    </div>
+    <div id="select_tech" class="form-add-user-filds">
+      <label for="">TECH DIRECTOR</label>
+      <select name="tech_dir" id="selectdir">
+        <option value={{user.tech_dir_user.id}} selected>{{user.tech_dir_user.name}}</option>
+        
+        {% for tech_dir in tech_dir_users %}
+
+        <option value="{{tech_dir.id}}">{{tech_dir.name}}</option>
+
+        {% endfor %}
+        
+
+      </select>
+    </div>
+     {% endcomment %}
+    {% comment %} <label for="lname">Password</label>
+    <input type="password" value={{user.password}} id="lname" name="password" placeholder=""> {% endcomment %}
+  
+    <input type="submit" class="add add btngroup-inner3" value="Submit">
+  </form>
+</div>
+
+
+{% endblock admincontent %}

@@ -1,0 +1,31 @@
+{% extends 'foundation.html' %}
+{% block admincontent %}
+
+<div class="title">
+  <h2 class="section--title">Departments</h2>
+  <a href="{% url 'adddep' %}" class="add"><i class="ri-add-line"></i>Add Department</a>
+</div>
+<div class="table">
+  <table>
+      <thead>
+          <tr>
+              <th>Name</th>
+              
+              
+              <th>Action</th>
+          </tr>
+      </thead>
+      <tbody>
+          {% for department in departments %}
+          <tr>
+              <td>{{department.name}}</td>
+        
+              <td class="pending" style="display:flex;"><a href="{% url 'deletedepartment' department.id %}" class="add" style="color: white; background-color:rgb(204, 59, 59); width:fit-content; margin-right:5px; margin-bottom:10px; height:35px;">Delete</a><a href="{% url 'updatedep' department.id %}" class="add" style="color: white; background-color:rgb(40, 148, 40); width:fit-content; height:35px;" >Update</a></td>
+              <td><span><i class="ri-edit-line edit"></i><i class="ri-delete-bin-line delete"></i></span></td>
+          </tr>
+          {% endfor %}
+          
+      </tbody>
+  </table>
+</div>
+{% endblock admincontent %}

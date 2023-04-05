@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+{% block style %}
+input[type=text], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+input[type=datetime-local], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+input[type=password], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type=submit] {
+  width: 20%;
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+div {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+  width: 70%;
+  margin: auto;
+}
+
+.longfield{
+  height: 100px;
+  width: 100%;
+}
+
+{% endblock style %}
+{% block content %}
+
+<h3 style="text-align: center;">Add Appointment</h3>
+
+<div>
+  {% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+  <form action="" method="POST">
+    {% csrf_token %}
+   
+
+
+    <label for="country">GH DH</label>
+    <select id="country" name="gh_dh">
+      <option selected value="{{ghid}}">{{obj.gh_dh}}</option>
+      {% for i in gh_dh %}
+      <option value="{{i.id}}">{{i.name}}</option>
+      {% endfor %}
+                   
+    </select>
+    <label for="country">Tech Dir</label>
+    <select id="country" name="tdir">
+      <option selected value="{{td}}">{{obj.tech_dir}}</option>
+      {% for dir in tech_dir %}
+      <option value="{{dir.id}}">{{dir.name}}</option>
+      {% endfor %}
+                   
+    </select>
+   
+    <label for="country" >Department</label>
+    <select id="country" name="department">
+      <option selected value="{{depid}}">{{obj.department}}</option>
+            {% for department in departments %}
+            <option value="{{department.id}}">{{department.name}}</option>
+            {% endfor %}
+                  
+    </select>
+
+    
+    <label for="lname">DateTime</label>
+    <input type="datetime-local" value={{date}} id="lname" name="date" placeholder="">
+    <label for="lname">Description</label>
+    <textarea type="text"   class="longfield" name="description" placeholder="">{{obj.description}} </textarea>
+  
+    <input type="submit" value="Submit">
+  </form>
+  
+  <a href="{% url 'employeerequest' %}" style="width: 100px; padding: 10px; background-color: rgb(49, 165, 69); border-radius: 5px; margin-top: 20px; color: black; float: right;">Show request</a>
+</div>
+
+{% endblock content %}

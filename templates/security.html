@@ -1,0 +1,103 @@
+{% extends 'foundation.html' %}
+
+{% block style %}
+
+
+{% endblock style %}
+
+{% block option %}
+<li>
+  <a href="">
+    
+      <span >Dashboard</span>
+    </a>
+  </li>
+<li>
+  <a href="{% url 'fullprofile' %}">
+    
+      <span >Profile</span>
+    </a>
+  </li>
+<li>
+  <a href="{% url 'chngpassword' %}">
+    
+      <span >Chagne Password</span>
+    </a>
+  </li>
+<li>
+  <a href="{% url 'logout' %}">
+    
+      <span >Logout</span>
+    </a>
+  </li>
+{% endblock option %}
+{% block admincontent %}
+<p> {% now "Y-m-d" %}</p>
+<div class="dashboard-wrapper">
+<div class="maindiv">
+  <h2 class="dashboard-heading">All Requests</h2>
+   <div class="table">
+    <table id="thtable"  cellpadding="15px">
+      
+      <tr>
+  
+        <th>User</th>
+       
+        <th>Description</th>
+        <th>Date</th>
+        <th>Details</th>
+        <th>Permanent Id</th>
+        <th>Action</th>
+
+    
+ 
+  
+      </tr>
+    <tbody>
+        {% for obj in objs %}
+       
+
+      <tr>
+        <th >{{obj.r_user}}</th>
+
+        <td>{{obj.description}}</td>
+
+        <td>{{obj.date}}</td>
+        <th><a href="{% url 'showfullrequest' obj.id %}" class="add" style="width: 150px;">Show Full Details</a></th>
+                
+        <td>{{obj.perm_id}}</td>
+        <!-- <td> <a href="{% url 'cancelrequest' obj.id %}" style="margin-left:20px; width: fit-content;" class="add">Cancel</a></td> -->
+        {% if obj.visited_staus == "pending" %}
+         {% if today == obj.date.date %}
+         <td>
+           <form action="" method="post">
+             {% csrf_token %}
+             <div class="s-btn">
+               <button class="add" name = "visited" value="{{obj.id}}">Visted</button>
+               
+               
+               
+               <button class="add" name="notvisited" value="{{obj.id}}">Not Visited</button>
+              </div>
+            </form>
+          </td>
+          {% endif %}
+      
+        
+        {% else %}
+        <td><button class="add" disabled>{{obj.visited_staus}}</button></td>
+        {% endif %}
+     
+
+    </tr>
+
+{% endfor %}
+  
+    </tbody>
+  </table>
+   </div>
+   
+</div>
+</div>
+
+{% endblock admincontent %}

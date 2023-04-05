@@ -1,0 +1,87 @@
+{% extends 'foundation.html' %}
+
+
+{% block admincontent %}
+<div class="dashboard-wrapper">
+<div class="title">
+    <h2 class="section--title" style="text-align: center">Appointment Clearance</h2>
+  
+  </div>
+
+<form action="" method="POST">
+    {% csrf_token %}
+
+    <select id="departmen" name="days">
+      <option selected value="selectposition">All data</option>
+                   
+
+                    <option value="last7days">Last 7 Days</option>
+                    <option value="today">Today</option>
+
+                  
+    </select>
+    <input type="submit" class="add gh1-btn2   gh1-btn" value="Submit">
+</form>
+  <table id="thtable" class="table">
+        
+    <tr>
+  
+      <th>User</th>
+  
+      <th>Date</th>
+      <th>Details</th>
+      <th>Send SO</th>
+      <th>Cancel </th>
+  
+  
+    </tr>
+  
+  <tbody>
+    {% for obj in objs %}
+  
+    <tr class="apo-data">
+      <th >{{obj.r_user}}</th> 
+      
+      
+  
+      <td>{{obj.date}}</td>
+   
+      <td><a href="{% url 'showfullrequest' obj.id %}" class="add" style="width: 150px;">Show Full Details</a></td>
+    {% if obj.send_security == False %}
+    
+    <td>
+      <form action="" method="post">
+        {% csrf_token %}
+        <button value="{{obj.id}}" name="forward" class="add gh1-btn">Send So</button>
+      </form>
+    </td>
+    {% else %}
+
+    <td>
+      <button class="add" disabled>Sent</button>
+    </td>
+    {% endif %}
+      {% if obj.close_clearance == False %}
+      
+      <td><form action="" method="post">
+        {% csrf_token %}
+        <button value="{{obj.id}}" name="cancelreq" class="add gh1-btn">Cancel request</button>
+      </form></td>
+
+      {% else %}
+
+      <td ><button class= "add">Request Canceled</button></td>
+      {% endif %}
+      
+      
+    </tr>
+    {% endfor %}
+  
+  </tbody>
+  </table>
+  <form action="" method="post">
+    {% csrf_token %}
+    <button name="download" class="add gh1-btn2 gh1-btn">Download</button>
+  </form>
+</div>
+{% endblock admincontent %}

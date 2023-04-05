@@ -1,0 +1,101 @@
+
+
+{% extends 'foundation.html' %}
+{% load static %}
+{% block style %}
+
+{% endblock style %}
+
+
+
+{% block admincontent %}
+
+<div class="dashboard-wrapper">
+
+<div>
+    {% if messages %}
+  <ul class="messages">
+      {% for message in messages %}
+      <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+      {% endfor %}
+  </ul>
+  {% endif %}
+       <div>
+        <!-- <h1 style="text-align:center; margin-top:20px; margin-bottom: 20px;"> Welcome {{request.user}}  <br> Position ==> {{request.user.position}}<h1> -->
+          
+            <div class="table">
+                <table cellpadding="15px">
+                    <thead>
+                        <tr class="apo-data1">
+                            <th>User</th>
+                            <th>Clearance Level</th>
+                            <!-- <th>Description</th> -->
+                            <th>Date</th>
+                            <!-- <th>Show History</th> -->
+                            <th>Details</th>
+                            <!-- <th>Send Oic</th> -->
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for obj in objs %}
+      
+                        <tr>
+                          <th >{{obj.r_user}}</th>
+                          <th>{{obj.clearance_level}}</th>
+                          <th>{{obj.created_at}}</th>
+                         
+<!--               
+                          <th>{{obj.date}}</th> -->
+                        
+                          <!-- <th><a href="showwhistssot/{{obj.r_user.employee_id}}">History</a></th>
+                
+                          {% if request.user.position == "GH/DH"  and obj.dh_gh_clr == "Pending" or request.user.position == "Tech Director" and obj.tech_dir_clr == "Pending" or request.user.position == "Associate Director" and obj.ass_dir_clr == "Pending"  or request.user.position == "Director" and obj.dir_clr == "Pending" %}
+                          <th ><div style="display:flex;">
+                            
+                            <form method="POST" class="form">
+                              {% csrf_token %}
+                              <button name="approved" class="add gh1-btn" style="text-align: center; margin-right:5px;" value="{{obj.id}}" type="submit">Approved</button>
+                            </form>
+                            <form action="" method="post" class="form">
+                              {% csrf_token %}
+                              <button name="napproved" class="add gh1-btn" style="background-color:rgb(209, 47, 47);" value="{{obj.id}}"  type="submit">Not Approved</button>
+                            </form> -->
+                            
+                          <!-- </div></th> -->
+                          <!-- {% else %}
+                         <th> <button class="add gh1-btn">action performed</button></th>
+
+                          {% endif %} -->
+                        <th><a href="{% url 'showfullrequest' obj.id %}" class="add" style="width: 150px;">Show Full Details</a></th>
+                
+                 {% if obj.final_status == "Approved" and obj.send_oic == False %}
+
+                 <th><form action="" method="post">
+                  {% csrf_token %}<button class="add" name="sendoic" value="{{obj.id}}">Send Oic</button></form></th>   
+                  {% elif obj.final_status == "Pending" %}
+                  
+                  {% else %}
+
+                  {% if obj.send_oic == True %}
+                  <th>
+                    <button class="add" disabled>Sent</button>
+                  </th>
+                  {% else %}
+                  <th>
+                    <button class="add" disabled>Rejected</button>
+                  </th>
+                  {% endif %}
+                 {% endif %}
+               
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        
+       </div>
+  
+  </div>
+</div>
+{% endblock admincontent %}

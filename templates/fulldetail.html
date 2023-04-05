@@ -1,0 +1,70 @@
+{% extends 'foundation.html' %}
+{% block style %}
+
+p{
+    margin-top:20px;
+}
+{% endblock style %}
+
+{% block option %}
+{% if request.user.position != "Employee" %}
+
+<li>
+    <a href="/home/shsfsdfow-readfafquest" id="active--link">
+      
+        <span >Dashboard</span>
+      </a>
+    </li>
+
+{% endif %}
+{% if request.user.position == "Employee" %}
+
+<li>
+    <a href="/home/postapntent" id="active--link">
+      
+        <span class="sidebar--item">Dashboard</span>
+      </a>
+    </li>
+  <li>
+    <a href="/home/seret" >
+      
+        <span class="sidebar--item">Show Request</span>
+    </a>
+  </li>
+  <li>
+    <a href="/home/seret" >
+      
+        <span class="sidebar--item">Cancel Request</span>
+    </a>
+  </li>
+  <li>
+    <a href="{% url 'fullprofile' %}" >
+      
+        <span class="sidebar--item">Profile</span>
+    </a>
+  </li>
+  <li>
+    <a href="{% url 'chngpassword' %}" >
+      
+        <span class="sidebar--item">Change Password</span>
+    </a>
+  </li>
+  <li>
+    <a href="{% url 'logout' %}" >
+      
+        <span class="sidebar--item">Logout</span>
+    </a>
+  </li>
+{% endif %}
+{% endblock option %}
+
+
+
+{% block admincontent %}
+
+
+    <div>
+       <p>{{obj.description}}</p>
+      </div>
+
+{% endblock admincontent %}

@@ -1,0 +1,172 @@
+{% extends 'foundation.html' %}
+{% block style %}
+input[type=text], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+input[type=datetime-local], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+textarea, select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+input[type=password], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type=submit] {
+ 
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+
+{% endblock style %}
+
+
+{% block option %}
+<li>
+  <a href="/home/postapntent" id="active--link">
+    
+      <span class="sidebar--item">Dashboard</span>
+    </a>
+  </li>
+<li>
+  <a href="/home/seret" >
+    
+      <span class="sidebar--item">Show Request</span>
+  </a>
+</li>
+<li>
+  <a href="/home/seret" >
+    
+      <span class="sidebar--item">Cancel Request</span>
+  </a>
+</li>
+<li>
+  <a href="{% url 'fullprofile' %}" >
+    
+      <span class="sidebar--item">Profile</span>
+  </a>
+</li>
+<li>
+  <a href="{% url 'chngpassword' %}" >
+    
+      <span class="sidebar--item">Change Password</span>
+  </a>
+</li>
+<li>
+  <a href="{% url 'logout' %}" >
+    
+      <span class="sidebar--item">Logout</span>
+  </a>
+</li>
+{% endblock option %}
+
+{% block admincontent %}
+
+<div>
+  {% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+  <form class="main-add-user-form pa-b" action="" method="POST">
+    {% csrf_token %}
+
+    <h2 style="text-align: center;">Add Appointment</h2>
+    <label for="">Organzation Name</label>
+    <input type="text" name="organization" style="width: 100%">
+    <label for="">Name</label>
+    
+    <input type="text" name="name" style="width: 100%">
+    <label for="">Age</label>
+
+
+    <input type="text" name="age" style="width: 100%"> 
+    <label for="">Height</label>
+
+    <input type="text" name="height" style="width: 100%">
+
+    <label for="country">GH DH</label>
+    <select id="country" name="gh_dh" style="width: 100%">
+      <option selected value="SelectGH">Select Users</option>
+      {% for i in gh_dh %}
+      <option value="{{i.id}}">{{i.name}}</option>
+      {% endfor %}
+                   
+    </select>
+    <label for="country">Tech Dir</label>
+    <select id="country" name="tdir" style="width: 100%">
+      <option selected value="SelectTD">Select Users</option>
+      {% for dir in tech_dir %}
+      <option value="{{dir.id}}">{{dir.name}}</option>
+      {% endfor %}
+                   
+    </select>
+    <label for="country" >Clearance Level</label>
+    <select id="level" name="level" style="width: 100%">
+      <option selected value="SelectDep">Select Clearance Level</option>
+         
+            <option value="red">Red</option>
+            <option value="green">Green</option>
+            <option value="yellow">Yellow</option>
+            <option value="brown">Brown</option>
+
+            
+
+
+                  
+    </select>
+   
+    <label for="country" >Oic</label>
+    <select id="country" name="ld" style="width: 100%">
+      <option selected value="SelectDep">Select ld</option>
+            {% for i in ld %}
+            <option value="{{i.id}}">{{i.name}}</option>
+            {% endfor %}
+                  
+    </select>
+
+    
+    <label for="lname">DateTime</label>
+    <input type="datetime-local" id="lname" name="date" placeholder="" style="width: 100%">
+    <label for="lname">Purpose</label>
+    <textarea type="text" class="longfield" name="description" placeholder="" style="width: 100%"   ></textarea>
+    <label for="lname">items</label>
+    <textarea type="text" class="longfield" name="items" placeholder="" style="width: 100%"></textarea>
+  
+    <input type="submit" class="add add btngroup-inner3" style="float:left;" value="Submit">
+  </form>
+ 
+
+</div>
+
+{% endblock admincontent %} 

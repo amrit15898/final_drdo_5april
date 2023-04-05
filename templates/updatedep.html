@@ -1,0 +1,41 @@
+{% extends 'foundation.html' %}
+{% block style %}
+input[type=text], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+input[type=password], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+
+{% endblock style %}
+{% block admincontent %}
+
+<h2 style="text-align: center;">Edit Department</h2>
+
+<div>
+  <form action="" method="POST">
+    {% csrf_token %}
+    <label for="fname">Department Name</label>
+    <input type="text" value={{dep.name}} id="fname" name="name" placeholder="">
+
+
+
+    <input type="submit" class="add" value="Submit">
+  </form>
+</div>
+
+
+{% endblock admincontent %}

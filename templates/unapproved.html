@@ -1,0 +1,117 @@
+{% extends 'foundation.html' %}
+
+{% block style %}
+
+
+{% endblock style %}
+{% block option %}
+<li>
+  <a href="/home/postapntent">
+    
+      <span class="sidebar--item">Dashboard</span>
+    </a>
+  </li>
+<li>
+  <a href="/home/seret" >
+    
+      <span class="sidebar--item">Show Request</span>
+  </a>
+</li>
+<li>
+  <a href="/home/seret" >
+    
+      <span class="sidebar--item">Cancel Request</span>
+  </a>
+</li>
+<li>
+  <a href="{% url 'fullprofile' %}" >
+    
+      <span class="sidebar--item">Profile</span>
+  </a>
+</li>
+<li>
+  <a href="{% url 'chngpassword' %}" >
+    
+      <span class="sidebar--item">Change Password</span>
+  </a>
+</li>
+<li>
+  <a href="{% url 'logout' %}" >
+    
+      <span class="sidebar--item">Logout</span>
+  </a>
+</li>
+
+{% endblock option %}
+{% block admincontent %}
+<!-- <h3 style="text-align:center; margin-top:20px; margin-bottom:20px;"> Welcome {{request.user}}  <br> Position ==> {{request.user.position}}<h3>
+<div class="table"  style="overflow-x:auto;"> -->
+    <table id="thtable">
+      
+          <tr class="th">
+      
+         
+ 
+            <th>Description</th>
+            <th>Date</th>
+            {% comment %} <th>GH/DH</th>
+            <th>Tech Director</th> {% endcomment %}
+            <th>Reason</th>
+            <th>Cancelled By</th>
+            <th>Position</th>
+
+     
+          </tr>
+ 
+        <tbody>
+          {% for obj in objs %}
+
+          <tr>
+      
+            <td>{{obj.description|truncatechars:50}}</td>
+
+            <td>{{obj.date}}</td>
+      
+            
+        
+            <td>{{obj.reason_cancelation}}| <a href="{% url 'showcancel' obj.id %}">Read</a></td>
+            {% if obj.dh_gh_clr == "Not Approved" %}
+            <td>{{obj.gh_dh.name}}<td>
+            <td>GH DH</td>
+
+
+            
+            {% endif %}
+            {% if obj.tech_dir_clr == "Not Approved" %}
+            <td>{{obj.tech_dir.name}}<td>
+            <td>Tech Director</td>
+
+
+            
+            {% endif %}
+            {% if obj.ass_dir_clr == "Not Approved" %}
+            <td>{{assdir}}<td>
+            <td>Ass Director</td>
+
+
+            
+            {% endif %}
+            {% if obj.dir_clr == "Not Approved" %}
+            <td>{{dir}}<td>
+            <td>Director</td>
+
+
+            
+            {% endif %}
+ 
+          </tr>
+          {% endfor %}
+      
+        </tbody>
+      </table>
+    
+
+</div>
+
+
+{% endblock admincontent %}
